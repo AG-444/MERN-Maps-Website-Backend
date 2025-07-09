@@ -4,6 +4,7 @@ const {validationResult} = require('express-validator');
 
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
+const Place = require('../models/place');
 
 let DUMMY_PLACES = [
   {
@@ -22,9 +23,7 @@ let DUMMY_PLACES = [
 const getPlaceById = (req, res, next) => {
   const placeId = req.params.pid; // { pid: 'p1' }
 
-  const place = DUMMY_PLACES.find(p => {
-    return p.id === placeId;
-  });
+  const place = Place.findById();
 
   if (!place) {
     throw new HttpError('Could not find a place for the provided id.', 404);
@@ -69,16 +68,22 @@ const createPlace = async (req, res, next) => {
     return next(error);
   }
 
-  const createdPlace = {
-    id: uuidv4(),
+  const createdPlace = new Place({
     title,
     description,
-    location: coordinates,
     address,
+    location :coordinates,
+    image: 'https://www.guilinphotographytour.com/uploads/2/1/2/0/21205284/header_images/1436732098.jpg',
     creator
-  };
+  });
 
-  DUMMY_PLACES.push(createdPlace); //unshift(createdPlace)
+  try{
+    await createdPlace.save();
+  } catch (err) {
+    const error = new HttpError('Creating place failed',500);
+    return next(error);
+  }
+
 
   res.status(201).json({ place: createdPlace });
 };
