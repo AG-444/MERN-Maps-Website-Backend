@@ -33,7 +33,7 @@ const signup = async (req, res, next) => {
         res.status(422);
         return next( new HttpError('Invalid inputs passed',422));
     }
-  const { name, email, password, places } = req.body;
+  const { name, email, password } = req.body;
   
   let existingUser;
   try{
@@ -53,7 +53,7 @@ const signup = async (req, res, next) => {
     email,
     image:'https://www.guilinphotographytour.com/uploads/2/1/2/0/21205284/header_images/1436732098.jpg',
     password,
-    places
+    places : []
   });
 
   try{
