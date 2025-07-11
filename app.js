@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb://Adi4:LAMPER1234@ac-qvstyix-shard-00-00.7jhaea5.mongodb.net:27017,ac-qvstyix-shard-00-01.7jhaea5.mongodb.net:27017,ac-qvstyix-shard-00-02.7jhaea5.mongodb.net:27017/places?ssl=true&replicaSet=atlas-tfk6bm-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Lenscape-users')
+  .connect('mongodb://Adi4:LAMPER1234@ac-qvstyix-shard-00-00.7jhaea5.mongodb.net:27017,ac-qvstyix-shard-00-01.7jhaea5.mongodb.net:27017,ac-qvstyix-shard-00-02.7jhaea5.mongodb.net:27017/mern?ssl=true&replicaSet=atlas-tfk6bm-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Lenscape-users')
   .then(()=>{
     app.listen(5000);
   })
