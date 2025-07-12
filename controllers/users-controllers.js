@@ -48,7 +48,7 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
+    image: 'https://media.cntraveler.com/photos/678166b8a51cc7c3458df25a/16:9/w_5920,h_3330,c_limit/pexels-Aleksandar%20Pasaric-2506923.jpg',
     password,
     places: []
   });
