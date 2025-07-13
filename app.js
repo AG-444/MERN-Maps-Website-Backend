@@ -18,7 +18,10 @@ app.use(bodyParser.json());
 
 app.use('/uploads/images',express.static(path.join('uploads','images')));
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'PUT'],
+}));
 app.use('/api/places', placesRoutes); 
 app.use('/api/users', usersRoutes);
 
