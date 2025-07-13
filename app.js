@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -43,11 +45,12 @@ app.use((error, req, res, next) => {
   res.json({message: error.message || 'An unknown error occurred!'});
 });
 
+
 mongoose
-  .connect('mongodb://Adi4:LAMPER1234@ac-qvstyix-shard-00-00.7jhaea5.mongodb.net:27017,ac-qvstyix-shard-00-01.7jhaea5.mongodb.net:27017,ac-qvstyix-shard-00-02.7jhaea5.mongodb.net:27017/mern?ssl=true&replicaSet=atlas-tfk6bm-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Lenscape-users')
-  .then(()=>{
+  .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ac-qvstyix.7jhaea5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Lenscape-users`)
+  .then(() => {
     app.listen(5000);
   })
-  .catch(err=>{
+  .catch(err => {
     console.log(err);
   });
