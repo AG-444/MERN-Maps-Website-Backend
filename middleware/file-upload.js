@@ -1,31 +1,6 @@
 const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
+const { storage } = require('./cloudinary-config');
 
-const MIME_TYPE_MAP = {
-    'image/png': 'png',
-    'image/jpg': 'jpg',
-    'image/jpeg': 'jpeg',
-    'image/webp': 'webp',
-    'image/gif': 'gif',
-    'image/svg': 'svg'
-};
-
-const fileUpload = multer({
-    limits: 5000000,
-    storage: multer.diskStorage({
-        destination : (req,file,cb) =>{
-            cb(null,'uploads/images')
-        },
-        filename  : (req,file,cb)  =>{
-            const ext = MIME_TYPE_MAP[file.mimetype];
-            cb(null, uuidv4() + '.' + ext);
-        }
-    }),
-    fileFilter: (req,file,cb) =>{
-        const isValid = !!MIME_TYPE_MAP[file.mimetype];
-        let error = isValid ? null : new Error('Invalid Mime type');
-        cb(error, isValid);
-    }
-});
+const fileUpload = multer({ storage });
 
 module.exports = fileUpload;
